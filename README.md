@@ -59,7 +59,7 @@ There are a few unknowns in the server software right now, and some things are s
 
 ## Acknowledgements 
 
-- Blayer98 from the FreeSO Community for noticing that 
+- Blayer98 from the FreeSO Community for noticing that Need for Speed Underground used the same connection packet as Bustin' Out sent.
 - The creator of the NFSU Server, which was the basis of this server (although it was a bit incredibly unsafe for a server). (https://github.com/HarpyWar/nfsuserver/)
 - Whoever recorded those packets for a (literally) underground PC/PS2 racing game in 2003, arguably before anyone even cared about this kind of preservation
 - PCSX2 developers and the PS2 online community for making DNAS less of an insurmountable obstacle.

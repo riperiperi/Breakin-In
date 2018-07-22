@@ -21,6 +21,7 @@ namespace BreakinIn.Messages
         public string REGN { get; set; }
         public string CLST { get; set; }
         public string NETV { get; set; }
+        public string MINAGE { get; set; }
 
         public override void Process(AbstractEAServer context, EAClient client)
         {
@@ -35,6 +36,7 @@ namespace BreakinIn.Messages
                 return;
             }
 
+            Console.WriteLine("Logged in: " + user.Username);
             mc.TryLogin(user, client);
         }
     }

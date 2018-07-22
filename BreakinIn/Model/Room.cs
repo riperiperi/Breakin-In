@@ -35,7 +35,7 @@ namespace BreakinIn.Model
 
         public void BroadcastPopulation()
         {
-            Server.Users.Broadcast(new PlusPop() { Z = Users.Count() + "/" + Max });
+            Server.Users.Broadcast(new PlusPop() { Z = ID + "/" + Users.Count().ToString() });
         }
     }
 }

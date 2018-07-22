@@ -52,6 +52,7 @@ namespace BreakinIn.Messages
                     {
                         //start the session.
                         var chals = new Chal[] { this, other };
+                        Console.WriteLine("Starting a game session between " + _From + " and " + this.PERS);
                         var host = chals.FirstOrDefault(x => x.HOST == "1");
                         var users = chals.Select(x => x._FromUser);
                         if (host == null) return; //??

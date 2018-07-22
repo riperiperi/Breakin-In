@@ -29,7 +29,7 @@ namespace BreakinIn
 
             try
             {
-                Redirector = new MatchmakerServer(10901);
+                Matchmaker = new MatchmakerServer(10901);
                 Console.WriteLine("Matchmaker: OK!");
             }
             catch (Exception e)

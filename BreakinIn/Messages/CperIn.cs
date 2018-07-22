@@ -17,8 +17,10 @@ namespace BreakinIn.Messages
             if (mc == null || !client.HasAuth()) return;
 
             var index = mc.Database.AddPersona(client.User.ID, PERS);
-            if (index == -1)
+            if (index < 0)
             {
+                if (index == -2) client.SendMessage(new CperDupl());
+                else client.SendMessage(new CperImst());
                 return;
             }
             var user = client.User;
@@ -29,6 +31,16 @@ namespace BreakinIn.Messages
                 NAME = user.Username,
                 PERS = PERS
             });
+        }
+
+        public class CperDupl : AbstractMessage
+        {
+            public override string _Name { get => "cperdupl"; }
+        }
+
+        public class CperImst : AbstractMessage
+        {
+            public override string _Name { get => "cperimst"; }
         }
     }
 }

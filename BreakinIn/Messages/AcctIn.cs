@@ -36,6 +36,7 @@ namespace BreakinIn.Messages
 
             var created = mc.Database.CreateNew(info);
             if (created) {
+                Console.WriteLine("Created new account: " + info.Username);
                 client.SendMessage(new AcctOut()
                 {
                     NAME = NAME,

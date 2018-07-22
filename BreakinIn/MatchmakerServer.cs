@@ -21,10 +21,13 @@ namespace BreakinIn
                 { "acct", typeof(AcctIn) },
                 { "~png", typeof(Ping) },
                 { "cper", typeof(CperIn) }, //create persona. (NAME) in, (PERS, NAME) out. where name is username.
+                { "dper", typeof(DperIn) }, //delete persona
                 { "pers", typeof(PersIn) }, //select persona
                 { "skey", typeof(SKeyIn) }, //session key?
                 { "sele", typeof(SeleIn) }, //gets info for the current server
                 { "user", typeof(UserIn) }, //get my user info
+                { "onln", typeof(OnlnIn) }, //search for a user's info
+                { "addr", typeof(Addr) }, //the client tells us their IP and port (ephemeral). The IP is usually wrong.
 
                 { "chal", typeof(Chal) }, //enter challenge mode
 

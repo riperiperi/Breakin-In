@@ -26,8 +26,10 @@ namespace BreakinIn.Messages
                 var eqSplit = pair.Split('=');
                 if (eqSplit.Length < 2) continue;
                 var prop = type.GetProperty(eqSplit[0]);
-                if ((prop == null || (prop.PropertyType != typeof(string)) || prop.Name[0] == '_') && !prop.Name.Contains("TIME"))
-                    Console.WriteLine("Unexpected Proprerty: " + pair + " (for " + type.ToString() + ")");
+                if (prop == null || (prop.PropertyType != typeof(string)) || prop.Name[0] == '_')
+                {
+                    if (!eqSplit[0].Contains("TIME")) Console.WriteLine("Unexpected Proprerty: " + pair + " (for " + type.ToString() + ")");
+                }
                 else
                 {
                     prop.SetValue(this, eqSplit[1]);
@@ -49,7 +51,7 @@ namespace BreakinIn.Messages
                     if (values == null) continue;
                     for (int i=0; i<values.Length; i++)
                     {
-                        keyValue.Append(prop.Name + i + "=" + values[i] + '\n');
+                        if (values[i] != null) keyValue.Append(prop.Name + i + "=" + values[i] + '\n');
                     }
                 }
                 else

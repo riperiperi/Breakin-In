@@ -16,6 +16,7 @@ namespace BreakinIn
         public AbstractEAServer Context;
         public User User;
         public string IP = "127.0.0.1";
+        public string Port = null;
         public int SessionID;
 
         private int ExpectedBytes = -1;
@@ -107,7 +108,7 @@ namespace BreakinIn
                         }
                     }
                 }
-            } catch (Exception e)
+            } catch (Exception)
             {
             }
             

@@ -81,20 +81,26 @@ namespace BreakinIn
 
         public virtual void HandleMessage(string name, byte[] data, EAClient client)
         {
-            var body = Encoding.ASCII.GetString(data);
-
-            Type c;
-            if (!NameToClass.TryGetValue(name, out c))
+            try
             {
-                Console.WriteLine("Unexpected Message Type " + name + ":");
-                Console.WriteLine(body);
-                return;
+                var body = Encoding.ASCII.GetString(data);
+
+                Type c;
+                if (!NameToClass.TryGetValue(name, out c))
+                {
+                    Console.WriteLine("Unexpected Message Type " + name + ":");
+                    Console.WriteLine(body);
+                    return;
+                }
+
+                var msg = (AbstractMessage)Activator.CreateInstance(c);
+                msg.Read(body);
+
+                msg.Process(this, client);
+            } catch (Exception)
+            {
+
             }
-
-            var msg = (AbstractMessage)Activator.CreateInstance(c);
-            msg.Read(body);
-
-            msg.Process(this, client);
         }
 
         public void Dispose()

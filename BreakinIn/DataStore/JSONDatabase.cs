@@ -11,6 +11,7 @@ namespace BreakinIn.DataStore
     {
         public int AutoInc = 1;
         public List<DbAccount> Accounts = new List<DbAccount>();
+        public HashSet<string> Personas = new HashSet<string>();
 
         public JSONDatabase()
         {
@@ -24,6 +25,14 @@ namespace BreakinIn.DataStore
                 {
                     var json = io.ReadToEnd();
                     Accounts = JsonConvert.DeserializeObject<List<DbAccount>>(json);
+                }
+                Personas.Clear();
+                foreach (var user in Accounts)
+                {
+                    foreach (var persona in user.Personas)
+                    {
+                        Personas.Add(persona);
+                    }
                 }
                 if (Accounts.Count > 0)
                     AutoInc = Accounts.Max(x => x.ID) + 1;
@@ -62,6 +71,8 @@ namespace BreakinIn.DataStore
             {
                 var acct = Accounts.FirstOrDefault(x => x.ID == id);
                 if (acct == null || acct.Personas.Count == 4) return -1;
+                if (Personas.Contains(persona)) return -2;
+                Personas.Add(persona);
                 acct.Personas.Add(persona);
                 index = acct.Personas.Count;
                 Save();
@@ -79,6 +90,7 @@ namespace BreakinIn.DataStore
                 index = acct.Personas.IndexOf(persona);
                 if (index != -1)
                 {
+                    Personas.Remove(persona);
                     acct.Personas.Remove(persona);
                     Save();
                 }

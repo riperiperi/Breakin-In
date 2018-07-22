@@ -26,7 +26,7 @@ namespace BreakinIn.Messages
                 var eqSplit = pair.Split('=');
                 if (eqSplit.Length < 2) continue;
                 var prop = type.GetProperty(eqSplit[0]);
-                if (prop == null || (prop.PropertyType != typeof(string)) || prop.Name[0] == '_' && !prop.Name.Contains("TIME"))
+                if ((prop == null || (prop.PropertyType != typeof(string)) || prop.Name[0] == '_') && !prop.Name.Contains("TIME"))
                     Console.WriteLine("Unexpected Proprerty: " + pair + " (for " + type.ToString() + ")");
                 else
                 {

@@ -76,10 +76,6 @@ namespace BreakinIn.Messages
 
         private string EncodeKV(string key, string value)
         {
-            if (value.Contains(' ') && !(value.Length > 1 && value[0] == '\"' && value[value.Length-1] == '\"'))
-            {
-                value = '\"' + value + '\"';
-            }
             return key + "=" + value + '\n';
         }
 

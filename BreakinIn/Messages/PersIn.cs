@@ -16,7 +16,7 @@ namespace BreakinIn.Messages
             if (mc == null) return;
 
             var user = client.User;
-            if (user == null) return;
+            if (user == null || user.SelectedPersona != -1) return;
             user.SelectPersona(PERS);
             if (user.SelectedPersona == -1) return; //failed?
             client.SendMessage(new PersOut() {

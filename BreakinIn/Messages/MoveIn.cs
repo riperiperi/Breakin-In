@@ -27,7 +27,11 @@ namespace BreakinIn.Messages
             var room = mc.Rooms.GetRoomByName(NAME);
             if (room != null)
             {
-                room.Users.AddUser(user);
+                if (!room.Users.AddUser(user))
+                {
+                    client.SendMessage(new MoveFull());
+                    return;
+                }
                 user.CurrentRoom = room;
             }
             else
@@ -38,5 +42,10 @@ namespace BreakinIn.Messages
                 });
             }
         }
+    }
+
+    public class MoveFull : AbstractMessage
+    {
+        public override string _Name { get => "movefull"; }
     }
 }

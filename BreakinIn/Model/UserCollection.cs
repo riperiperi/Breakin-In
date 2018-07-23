@@ -10,12 +10,21 @@ namespace BreakinIn.Model
     {
         protected List<User> Users = new List<User>();
 
-        public virtual void AddUser(User user)
+        public List<User> GetAll()
+        {
+            lock (Users)
+            {
+                return new List<User>(Users);
+            }
+        }
+
+        public virtual bool AddUser(User user)
         {
             lock (Users)
             {
                 Users.Add(user);
             }
+            return true;
         }
 
         public virtual void RemoveUser(User user)

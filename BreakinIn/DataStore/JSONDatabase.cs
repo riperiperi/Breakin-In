@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BreakinIn.DataStore
 {
@@ -66,6 +67,8 @@ namespace BreakinIn.DataStore
 
         public int AddPersona(int id, string persona)
         {
+            var regex = new Regex("/[a-z\\d\\-_\\s]+/i");
+            if (!regex.IsMatch(persona)) return -1;
             var index = 0;
             lock (Accounts)
             {

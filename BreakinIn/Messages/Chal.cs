@@ -33,15 +33,11 @@ namespace BreakinIn.Messages
             
             lock (room.ChallengeMap)
             {
+                room.RemoveChallenges(user); //remove any challenges we made before
                 if (PERS == "*")
                 {
                     //we don't want to play with anyone anymore
-                    var old = room.ChallengeMap.Values.FirstOrDefault(x => x._From == _From);
-                    if (old != null)
-                    {
-                        room.ChallengeMap.Remove(old.PERS);
-                        return;
-                    }
+                    return;
                 }
                 //firstly, is someone wanting to play with us yet
                 else if (room.ChallengeMap.ContainsKey(user.PersonaName))
@@ -52,10 +48,19 @@ namespace BreakinIn.Messages
                     {
                         //start the session.
                         var chals = new Chal[] { this, other };
-                        Console.WriteLine("Starting a game session between " + _From + " and " + this.PERS);
                         var host = chals.FirstOrDefault(x => x.HOST == "1");
                         var users = chals.Select(x => x._FromUser);
                         if (host == null) return; //??
+
+                        if (room.AllInGame)
+                        {
+                            users = room.Users.GetAll();
+                            Console.WriteLine("Starting an all play game session: " + string.Join(',', users.Select(x => x.PersonaName)));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Starting a private game session between " + _From + " and " + this.PERS);
+                        }
 
                         var sess = new PlusSes()
                         {
@@ -63,6 +68,7 @@ namespace BreakinIn.Messages
                             HOST = host._From,
                             ROOM = room.Name,
                             KIND = host.KIND,
+                            COUNT = users.Count().ToString(),
 
                             OPID = users.Select(x => x.ID.ToString()).ToArray(),
                             OPPO = users.Select(x => x.PersonaName).ToArray(),
@@ -72,11 +78,41 @@ namespace BreakinIn.Messages
                             SELF = user.PersonaName
                         };
 
-                        foreach (var userx in users)
+                        /*
+                         * Experimental stuff to try get bustin out to connect multiple users
+                         * didn't work unfortunately.
+                        if (room.AllInGame)
                         {
-                            sess.SELF = userx.PersonaName;
-                            userx.Connection?.SendMessage(sess);
+                            //send a packet containing everyone to the host
+                            sess.SELF = host._From;
+                            var hostuser = host._FromUser;
+                            hostuser.Connection?.SendMessage(sess);
+
+                            //send a packet containing only the host and self to everyone else
+                            foreach (var userx in users)
+                            {
+                                if (userx == hostuser) continue;
+                                sess.SELF = userx.PersonaName;
+
+                                var nusers = new List<User>() { hostuser, userx };
+
+                                sess.COUNT = "2";
+                                sess.OPID = nusers.Select(x => x.ID.ToString()).ToArray();
+                                sess.OPPO = nusers.Select(x => x.PersonaName).ToArray();
+                                sess.ADDR = nusers.Select(x => x.IP).ToArray();
+
+                                userx.Connection?.SendMessage(sess);
+                            }
                         }
+                        else
+                        {*/
+                            foreach (var userx in users)
+                            {
+                                sess.SELF = userx.PersonaName;
+                                userx.Connection?.SendMessage(sess);
+                            }
+                        //}
+
                         return;
                     }
                 }

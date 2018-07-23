@@ -14,9 +14,13 @@ namespace BreakinIn.Model
             Room = parent;
         }
         
-        public override void AddUser(User user)
+        public override bool AddUser(User user)
         {
-            base.AddUser(user);
+            lock (Users)
+            {
+                if (Users.Count >= Room.Max) return false;
+                base.AddUser(user);
+            }
 
             //send move to this user
             MoveOut move;
@@ -49,6 +53,7 @@ namespace BreakinIn.Model
             RefreshUser(user);
             ListToUser(user);
             Room.BroadcastPopulation();
+            return true;
         }
 
         public void RefreshUser(User target)
@@ -90,6 +95,7 @@ namespace BreakinIn.Model
             });
 
             Room.BroadcastPopulation();
+            Room.RemoveChallenges(user);
         }
     }
 }

@@ -57,11 +57,11 @@ namespace BreakinIn
             PingThread = new Thread(PingLoop);
             PingThread.Start();
 
-            Rooms.AddRoom(new Room() { Name = "Room-E", IsGlobal = true });
-            Rooms.AddRoom(new Room() { Name = "Room-D", IsGlobal = true });
-            Rooms.AddRoom(new Room() { Name = "Room-C", IsGlobal = true });
-            Rooms.AddRoom(new Room() { Name = "Room-B", IsGlobal = true });
-            Rooms.AddRoom(new Room() { Name = "Room-A", IsGlobal = true });
+            Rooms.AddRoom(new Room() { Name = "Veronaville", IsGlobal = true });
+            Rooms.AddRoom(new Room() { Name = "Strangetown", IsGlobal = true });
+            Rooms.AddRoom(new Room() { Name = "Pleasantview", IsGlobal = true });
+            Rooms.AddRoom(new Room() { Name = "Belladonna Cove", IsGlobal = true });
+            Rooms.AddRoom(new Room() { Name = "Riverblossom Hills", IsGlobal = true });
         }
 
         public void PingLoop()

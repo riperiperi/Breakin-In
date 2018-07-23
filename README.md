@@ -2,7 +2,8 @@
 
 A Server Emulator for The Sims Bustin Out (PS2)'s Online Weekend mode, written in C# targeting .NET Core.
 
-![image](https://user-images.githubusercontent.com/6294155/43041072-3938e78c-8d4d-11e8-863d-42484e9fc64f.png)
+![image](https://user-images.githubusercontent.com/6294155/43072944-b2b6451e-8e6f-11e8-86b6-cf2243ec40fb.png)
+
 
 ## FreeSO Hosted Server
 A 24/7 Bustin Out PS2 server is hosted on http://freeso.org. Simply get a US copy of Bustin Out and PCSX2 with a DEV9 plugin. Set your DNS to `46.101.67.219` via either the plugin settings or ingame PS2 network configuration. This should be enough to connect to our server!
@@ -31,11 +32,16 @@ The purpose of this mode was to let players help each other through the campaign
 ## Game Instructions
 First you'll want to find someone to play with. There is no chance you'll find a random player on the server, so you should invite your friends or some people from a Discord. The FreeSO official discord is probably a good place to do this.
 
-Free Weekend mode is pretty easy to enter. It's available right from the main menu, then you basically just mash X until you get to the login screen.
+Free Weekend mode is pretty easy to enter. It's available right from the main menu, then you basically just mash X until you get to the login screen. This includes mashing X through the PS2 Net Confgiuration, which will likely appear broken on your PCSX2.
+
+![image](https://user-images.githubusercontent.com/6294155/43041072-3938e78c-8d4d-11e8-863d-42484e9fc64f.png)
 
 Join a lobby with someone else in it. You can chat in the lobby with the R1 button. If you invite someone to your game, they will come to the property you've saved on in single player mode.
 
 Both players can pause the game at any time, though both players must hold R1 to enter high speed mode. You cannot enter Build/Buy, and job carpools are disabled, so make sure you've got everything you want on your lot before you mess around in multiplayer.
+
+![image](https://user-images.githubusercontent.com/6294155/43072967-caabd6d4-8e6f-11e8-8b87-658ba5471cfe.png)
+![image](https://user-images.githubusercontent.com/6294155/43072979-d6fe35b2-8e6f-11e8-927b-6ed1ad2a2718.png)
 
 ## Server Usage
 Clone the repo into a folder and configure it using config.json. The only important thing to set here is your _external ip_, which is used by the redirection server the game first connects to.

@@ -67,7 +67,7 @@ namespace BreakinIn.DataStore
 
         public int AddPersona(int id, string persona)
         {
-            var regex = new Regex("/[a-z\\d\\-_\\s]+/i");
+            var regex = new Regex(@"[a-zA-Z0-9\s]");
             if (!regex.IsMatch(persona)) return -1;
             var index = 0;
             lock (Accounts)

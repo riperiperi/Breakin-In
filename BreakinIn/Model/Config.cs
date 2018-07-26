@@ -6,6 +6,6 @@ namespace BreakinIn.Model
 {
     public class Config
     {
-        public string external_ip = "86.154.114.253";
+        public string external_ip = "localhost";
     }
 }

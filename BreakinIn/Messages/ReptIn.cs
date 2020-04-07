@@ -11,19 +11,21 @@ namespace BreakinIn.Messages
         public string PERS { get; set; }
         public string PROD { get; set; }
         public string LANG { get; set; }
-		
-		public override void Process(AbstractEAServer context, EAClient client)
-		{
-			var mc = context as MatchmakerServer;
+
+        public override void Process(AbstractEAServer context, EAClient client)
+        {
+            var mc = context as MatchmakerServer;
             if (mc == null) return;
-			
-			var PlayerReportingPlayer = new ReptOut()
+
+            var PlayerReportingPlayer = new ReptOut()
             {
                 PERS = PERS,
             };
 
             var user = client.User;
             if (user == null) return;
+
+
 
             if (user.PersonaName == PERS)
             {
@@ -32,10 +34,20 @@ namespace BreakinIn.Messages
             }
             else
             {
-                Console.WriteLine(user.PersonaName + " has reported " + PERS + ". Both players are currently in " + user.CurrentRoom.Name.ToString() + ".");
-                client.SendMessage(PlayerReportingPlayer);
+                if (user.CurrentRoom.Name.ToString() == null)
+                {
+                    Console.WriteLine(user.PersonaName + " has reported " + PERS + ". Both players seem to be in a certain room, but it doesn't have a name.");
+                    client.SendMessage(PlayerReportingPlayer);
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine(user.PersonaName + " has reported " + PERS + ". The report has come from " + user.CurrentRoom.Name.ToString() + ".");
+                    client.SendMessage(PlayerReportingPlayer);
+                    return;
+                }
             }
-		}		
+        }
     }
     public class ReportingSelf : AbstractMessage
     {

@@ -27,6 +27,7 @@ namespace BreakinIn
                 { "sele", typeof(SeleIn) }, //gets info for the current server
                 { "user", typeof(UserIn) }, //get my user info
                 { "onln", typeof(OnlnIn) }, //search for a user's info
+				{ "rept", typeof(ReptIn) }, //report user
                 { "addr", typeof(Addr) }, //the client tells us their IP and port (ephemeral). The IP is usually wrong.
 
                 { "chal", typeof(Chal) }, //enter challenge mode

@@ -25,30 +25,28 @@ namespace BreakinIn.Messages
             var user = client.User;
             if (user == null) return;
 
-
+            var ReportedPlayer = mc.Users.GetUserByPersonaName(PERS);
+            if (ReportedPlayer == null) return;
 
             if (user.PersonaName == PERS)
             {
                 Console.WriteLine(user.PersonaName + " attempted to report themselves, which is not allowed.");
                 client.SendMessage(new ReportingSelf());
             }
-            else
+            else if (user.CurrentRoom == ReportedPlayer.CurrentRoom)
             {
-                if (user.CurrentRoom.Name.ToString() == null)
-                {
-                    Console.WriteLine(user.PersonaName + " has reported " + PERS + ". Both players seem to be in a certain room, but it doesn't have a name.");
-                    client.SendMessage(PlayerReportingPlayer);
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine(user.PersonaName + " has reported " + PERS + ". The report has come from " + user.CurrentRoom.Name.ToString() + ".");
-                    client.SendMessage(PlayerReportingPlayer);
-                    return;
-                }
+                Console.WriteLine(user.PersonaName + " has reported " + PERS + " for inappropriate behaviour. Both players are currently in " + user.CurrentRoom.Name + ".");
+                client.SendMessage(PlayerReportingPlayer);
+                return;
+            }
+            else if (user.CurrentRoom != ReportedPlayer.CurrentRoom)
+            {
+                Console.WriteLine(user.PersonaName + " has reported " + PERS + ", but it appears that " + PERS + " left the room while the report was being made... " + PERS + " was previously in " + user.CurrentRoom.Name + ", while " + user.PersonaName + " should still be in that room.");
+                client.SendMessage(new ReportedUserHasntSpokenYetOrWasFalselyReported());
             }
         }
     }
+
     public class ReportingSelf : AbstractMessage
     {
         public override string _Name { get => "reptself"; }
@@ -59,7 +57,7 @@ namespace BreakinIn.Messages
         public override string _Name { get => "reptdisa"; }
     }
 
-    public class ReportedUserHasntSpokenYet : AbstractMessage
+    public class ReportedUserHasntSpokenYetOrWasFalselyReported : AbstractMessage
     {
         public override string _Name { get => "reptwolf"; }
     }

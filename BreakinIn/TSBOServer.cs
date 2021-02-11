@@ -18,15 +18,39 @@ namespace BreakinIn
             try
             {
                 Redirector = new RedirectorServer(11100, addr, 10901);
-                Console.WriteLine("Redirector: OK!");
+                Console.WriteLine("RedirectorUS: OK!");
             }
             catch (Exception e)
             {
-                Console.WriteLine("Redirector: Failed to start! Exception:");
+                Console.WriteLine("RedirectorUS: Failed to start! Exception:");
                 Console.WriteLine(e.ToString());
                 return false;
             }
-
+			
+			try
+            {
+                Redirector = new RedirectorServer(11140, addr, 10901);
+                Console.WriteLine("RedirectorEU: OK!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("RedirectorEU: Failed to start! Exception:");
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+			
+			            try
+            {
+                Redirector = new RedirectorServer(11110, addr, 10901);
+                Console.WriteLine("RedirectorJP: OK!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("RedirectorJP: Failed to start! Exception:");
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+			
             try
             {
                 Matchmaker = new MatchmakerServer(10901);
